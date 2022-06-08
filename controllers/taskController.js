@@ -1,6 +1,6 @@
 const Task = require("../models/Task");
 // validation
-const { taskValidation } = require("../validation");
+const { taskAddValidation, taskUpdateValidation } = require("../validation");
 
 // https://medium.com/swlh/how-to-create-a-simple-restful-api-in-node-js-ae4bfddea158
 
@@ -20,7 +20,7 @@ exports.create_a_task = (req, res) => {
   }
 
   // validate task
-  const { error } = taskValidation(newTask);
+  const { error } = taskAddValidation(newTask);
   if (error) {
     return res.status(400).json({ error: error.details[0].message });
   }
@@ -41,7 +41,7 @@ exports.read_a_task = (req, res) => {
 
 exports.update_a_task = (req, res) => {
   // validate task
-  const { error } = taskValidation(req.body);
+  const { error } = taskUpdateValidation(req.body);
   if (error) {
     return res.status(400).json({ error: error.details[0].message });
   }
