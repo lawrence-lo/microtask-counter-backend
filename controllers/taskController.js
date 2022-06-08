@@ -58,7 +58,7 @@ exports.update_a_task = (req, res) => {
 };
 
 exports.delete_a_task = (req, res) => {
-  Task.remove(
+  Task.deleteOne(
     {
       _id: req.params.taskId,
     },
