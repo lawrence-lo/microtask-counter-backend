@@ -16,6 +16,14 @@ const accountValidation = (data) => {
   return schema.validate(data);
 };
 
+const typeValidation = (data) => {
+  const schema = Joi.object({
+    type: Joi.string().min(1).max(128).required(),
+    userid: Joi.string().required(),
+  });
+  return schema.validate(data);
+};
+
 const taskAddValidation = (data) => {
   const schema = Joi.object({
     date: Joi.date().required(),
@@ -30,14 +38,12 @@ const taskAddValidation = (data) => {
 
 const taskUpdateValidation = (data) => {
   const schema = Joi.object({
-    // date: Joi.date().required(),
     type: Joi.string().min(1).max(128).required(),
     minute: Joi.number().min(0).max(1440).required(),
     second: Joi.number().min(0).max(60).required(),
     count: Joi.number().min(1).max(1000).required(),
-    // userid: Joi.string().required(),
   });
   return schema.validate(data);
 };
 
-module.exports = { accountValidation, taskAddValidation, taskUpdateValidation };
+module.exports = { accountValidation, taskAddValidation, taskUpdateValidation, typeValidation };

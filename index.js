@@ -20,6 +20,7 @@ mongoose.connect(
 const authRoutes = require("./routes/auth");
 const dashboardRoutes = require("./routes/dashboard");
 const tasksRoutes = require("./routes/tasks");
+const typesRoutes = require("./routes/types");
 const verifyToken = require("./routes/validate-token");
 
 // middlewares
@@ -32,5 +33,6 @@ app.use("/api/user", authRoutes);
 app.use("/api/dashboard", verifyToken, dashboardRoutes);
 
 app.use("/api/tasks", verifyToken, tasksRoutes);
+app.use("/api/types", verifyToken, typesRoutes);
 
 app.listen(3001, () => console.log("server is running..."));
