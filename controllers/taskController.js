@@ -13,11 +13,11 @@ exports.list_all_tasks = (req, res) => {
 };
 
 exports.create_a_task = (req, res) => {
- // Add userid to database
+  // Add userid to database
   newTask = {
     ...req.body,
-    userid: req.user.id
-  }
+    userid: req.user.id,
+  };
 
   // validate task
   const { error } = taskAddValidation(newTask);
@@ -58,13 +58,25 @@ exports.update_a_task = (req, res) => {
 };
 
 exports.delete_a_task = (req, res) => {
-  Task.deleteOne(
-    {
-      _id: req.params.taskId,
-    },
-    (err, task) => {
-      if (err) res.send(err);
-      res.json({ message: "Task successfully deleted" });
-    }
-  );
+  if (req.params.taskId) {
+    Task.deleteOne(
+      {
+        _id: req.params.taskId,
+      },
+      (err, task) => {
+        if (err) res.send(err);
+        res.json({ message: "Task successfully deleted" });
+      }
+    );
+  } else {
+    Task.deleteMany(
+      {
+        userid: req.user.id,
+      },
+      (err, task) => {
+        if (err) res.send(err);
+        res.json({ message: "All tasks successfully deleted" });
+      }
+    );
+  }
 };
