@@ -5,11 +5,19 @@ const { taskAddValidation, taskUpdateValidation } = require("../validation");
 // https://medium.com/swlh/how-to-create-a-simple-restful-api-in-node-js-ae4bfddea158
 
 exports.list_all_tasks = (req, res) => {
-  // Find tasks with userid that matches with id in the token header
-  Task.find({ userid: req.user.id }, (err, task) => {
-    if (err) res.send(err);
-    res.json(task);
-  });
+  // List all tasks for admin
+  if ((req.user.username === "admin")) {
+    Task.find({}, (err, task) => {
+      if (err) res.send(err);
+      res.json(task);
+    });
+  } else {
+    // Find tasks with userid that matches with id in the token header
+    Task.find({ userid: req.user.id }, (err, task) => {
+      if (err) res.send(err);
+      res.json(task);
+    });
+  }
 };
 
 exports.create_a_task = (req, res) => {
