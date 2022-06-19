@@ -37,4 +37,4 @@ app.use("/api/tasks", verifyToken, tasksRoutes);
 app.use("/api/types", verifyToken, typesRoutes);
 app.use("/api/users", verifyToken, usersRoutes);
 
-app.listen(3001, () => console.log("server is running..."));
+app.listen(process.env.PORT || 3001, () => console.log("server is running..."));
